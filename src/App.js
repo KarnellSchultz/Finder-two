@@ -10,12 +10,6 @@ export default function App() {
 			type: 'file',
 		},
 		{
-			id: 2,
-			name: 'Desktop',
-			parentID: 0,
-			type: 'file',
-		},
-		{
 			id: 3,
 			name: 'document!',
 			parentID: 0,
@@ -25,6 +19,7 @@ export default function App() {
 
 	const [text, setText] = useState('');
 	const [count, setCount] = useState(3);
+	const [isFile, setIsFile] = useState(true);
 
 	const [files, setFiles] = useState(tempFiles);
 	const [currentFolderId, setCurrentFolderId] = useState(0);
@@ -49,9 +44,13 @@ export default function App() {
 			id: nextId(),
 			name: text,
 			parentID: currentFolderId,
-			type: 'file',
+			type: isFile ? 'file' : 'document',
 		};
 		setFiles([...files, newFile]);
+	};
+
+	const handleRadioChange = () => {
+		setIsFile(!isFile);
 	};
 
 	const handleTextChange = e => {
@@ -111,8 +110,10 @@ export default function App() {
 		<>
 			<h1>{folderHeading()}</h1>
 			<Form
+				handleRadioChange={handleRadioChange}
 				handleTextChange={handleTextChange}
 				handleSubmit={handleSubmit}
+				isFile={isFile}
 				text={text}
 			/>
 			{currentFolderId === 0 ? (

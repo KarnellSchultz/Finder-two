@@ -1,7 +1,12 @@
 import React from 'react';
 
-export default function Form({ handleSubmit, text, handleTextChange }) {
-	const [file, isFile] = React.useState(true);
+export default function Form({
+	handleSubmit,
+	text,
+	handleRadioChange,
+	isFile,
+	handleTextChange,
+}) {
 	return (
 		<form
 			onSubmit={e => {
@@ -19,23 +24,23 @@ export default function Form({ handleSubmit, text, handleTextChange }) {
 			/>
 			<div className="radio">
 				<label htmlFor="folder">
-					Folder
+					File
 					<input
-						onClick={e => isFile(!file)}
+						onClick={handleRadioChange}
 						type="radio"
 						name="folder"
 						value=""
-						checked={file}
+						checked={isFile}
 					/>
 				</label>
 				<label htmlFor="file">
-					File
+					Document
 					<input
-						onClick={e => isFile(!file)}
+						onClick={handleRadioChange}
 						type="radio"
 						name="file"
 						value=""
-						checked={!file}
+						checked={!isFile}
 					/>
 				</label>
 			</div>
