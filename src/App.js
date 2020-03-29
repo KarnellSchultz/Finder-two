@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Form from './Form';
 
 export default function App() {
 	let tempFiles = [
@@ -10,11 +11,18 @@ export default function App() {
 		},
 		{
 			id: 2,
-			name: 'Docs',
+			name: 'Desktop',
 			parentID: 0,
 			type: 'file',
 		},
+		{
+			id: 3,
+			name: 'document!',
+			parentID: 0,
+			type: 'document',
+		},
 	];
+
 	const [text, setText] = useState('');
 	const [count, setCount] = useState(3);
 
@@ -36,22 +44,6 @@ export default function App() {
 		setCurrentFolderId(tempID);
 	}
 
-	const renderFiles = () => {
-		let currentView = [];
-		files.map(file =>
-			file.parentID === currentFolderId ? currentView.push(file) : null,
-		);
-		return currentView.map((item, index) => {
-			return (
-				<li key={item.id}>
-					<button className="file" onClick={e => handleFolderClick(e, item.id)}>
-						{item.name}
-					</button>
-				</li>
-			);
-		});
-	};
-
 	const createFolder = () => {
 		const newFile = {
 			id: nextId(),
@@ -72,6 +64,40 @@ export default function App() {
 		setText('');
 	};
 
+	const renderFiles = () => {
+		let currentView = [];
+		files.map(file =>
+			file.parentID === currentFolderId && file.type === 'file'
+				? currentView.push(file)
+				: null,
+		);
+		return currentView.map(item => {
+			return (
+				<li key={item.id}>
+					<button className="file" onClick={e => handleFolderClick(e, item.id)}>
+						{item.name}
+					</button>
+				</li>
+			);
+		});
+	};
+
+	const renderDocuments = () => {
+		let documentCurrentView = [];
+		files.map(document =>
+			document.parentID === currentFolderId && document.type === 'document'
+				? documentCurrentView.push(document)
+				: null,
+		);
+		return documentCurrentView.map(item => {
+			return (
+				<li key={item.id}>
+					<button className="document">{item.name}</button>
+				</li>
+			);
+		});
+	};
+
 	const folderHeading = () => {
 		if (currentFolderId) {
 			let heading = files.filter(item => item.id === currentFolderId);
@@ -84,26 +110,11 @@ export default function App() {
 	return (
 		<>
 			<h1>{folderHeading()}</h1>
-			<form>
-				<input
-					type="text"
-					name="input"
-					id="input"
-					placeholder="input"
-					value={text}
-					onChange={e => {
-						handleTextChange(e);
-					}}
-					onSubmit={() => setText('')}
-				/>
-				<button
-					type="submit"
-					onClick={e => {
-						handleSubmit(e);
-					}}>
-					Submit
-				</button>
-			</form>
+			<Form
+				handleTextChange={handleTextChange}
+				handleSubmit={handleSubmit}
+				text={text}
+			/>
 			{currentFolderId === 0 ? (
 				<button disabled onClick={e => handleBackButtonClick(e)}>
 					Root
@@ -112,6 +123,7 @@ export default function App() {
 				<button onClick={e => handleBackButtonClick(e)}>..</button>
 			)}
 			<ul>{renderFiles()}</ul>
+			<ul>{renderDocuments()}</ul>
 		</>
 	);
 }

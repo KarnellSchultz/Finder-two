@@ -24,8 +24,16 @@ button:active {
 button.file {
 	background: palevioletred;
 }
+button.document {
+	background: palegoldenrod;
+}
+button.document:hover {
+	background: rgb(245, 241, 191);
+}
+
 button.file:hover {
 	background: #d87050;
 }
-input {
+li {
+	list-style: decimal-leading-zero;
 }
