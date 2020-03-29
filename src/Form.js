@@ -4,7 +4,7 @@ export default function Form({
 	handleSubmit,
 	text,
 	handleRadioChange,
-	isFile,
+	isFile = true,
 	handleTextChange,
 }) {
 	return (
@@ -26,20 +26,18 @@ export default function Form({
 				<label htmlFor="folder">
 					File
 					<input
-						onClick={handleRadioChange}
+						onChange={handleRadioChange}
 						type="radio"
 						name="folder"
-						value=""
 						checked={isFile}
 					/>
 				</label>
 				<label htmlFor="file">
 					Document
 					<input
-						onClick={handleRadioChange}
+						onChange={handleRadioChange}
 						type="radio"
 						name="file"
-						value=""
 						checked={!isFile}
 					/>
 				</label>

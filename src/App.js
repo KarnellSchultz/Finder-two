@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+
 import Form from './Form';
+import View from './View';
 
 export default function App() {
 	let tempFiles = [
@@ -10,7 +12,7 @@ export default function App() {
 			type: 'file',
 		},
 		{
-			id: 3,
+			id: 2,
 			name: 'document!',
 			parentID: 0,
 			type: 'document',
@@ -63,52 +65,18 @@ export default function App() {
 		setText('');
 	};
 
-	const renderFiles = () => {
-		let currentView = [];
-		files.map(file =>
-			file.parentID === currentFolderId && file.type === 'file'
-				? currentView.push(file)
-				: null,
-		);
-		return currentView.map(item => {
-			return (
-				<li key={item.id}>
-					<button className="file" onClick={e => handleFolderClick(e, item.id)}>
-						{item.name}
-					</button>
-				</li>
-			);
-		});
-	};
-
-	const renderDocuments = () => {
-		let documentCurrentView = [];
-		files.map(document =>
-			document.parentID === currentFolderId && document.type === 'document'
-				? documentCurrentView.push(document)
-				: null,
-		);
-		return documentCurrentView.map(item => {
-			return (
-				<li key={item.id}>
-					<button className="document">{item.name}</button>
-				</li>
-			);
-		});
-	};
-
-	const folderHeading = () => {
+	const FolderHeading = () => {
 		if (currentFolderId) {
 			let heading = files.filter(item => item.id === currentFolderId);
-			return heading[0].name;
+			return <h1>{heading[0].name}</h1>;
 		} else {
-			return 'Root';
+			return <h1>Root</h1>;
 		}
 	};
 
 	return (
 		<>
-			<h1>{folderHeading()}</h1>
+			<FolderHeading />
 			<Form
 				handleRadioChange={handleRadioChange}
 				handleTextChange={handleTextChange}
@@ -123,8 +91,19 @@ export default function App() {
 			) : (
 				<button onClick={e => handleBackButtonClick(e)}>..</button>
 			)}
-			<ul>{renderFiles()}</ul>
-			<ul>{renderDocuments()}</ul>
+			<View
+				handleFolderClick={handleFolderClick}
+				currentFolderId={currentFolderId}
+				files={files}
+				renderType={'file'}
+			/>
+
+			<View
+				handleFolderClick={handleFolderClick}
+				currentFolderId={currentFolderId}
+				files={files}
+				renderType={'document'}
+			/>
 		</>
 	);
 }
