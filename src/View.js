@@ -6,7 +6,7 @@ export default function View({
 	currentFolderId,
 	handleFolderClick,
 }) {
-	const createListOfItemsToRender = files => {
+	function CreateListOfItemsToRender({ files }) {
 		let currentView = [];
 		files.map(item => {
 			console.log(item, currentFolderId);
@@ -26,8 +26,9 @@ export default function View({
 			</li>
 		));
 
-		return view;
-	};
+		return <ul> {view}</ul>;
+	}
 
-	return <ul>{createListOfItemsToRender(files)}</ul>;
+	// return <ul>{createListOfItemsToRender(files)}</ul>;
+	return <CreateListOfItemsToRender files={files} />;
 }

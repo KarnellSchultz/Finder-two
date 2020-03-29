@@ -20,8 +20,7 @@ export default function Form({
 				value={text}
 				onChange={e => {
 					handleTextChange(e);
-				}}
-			/>
+				}}></input>
 			<div className="radio">
 				<label htmlFor="folder">
 					File
@@ -29,8 +28,7 @@ export default function Form({
 						onChange={handleRadioChange}
 						type="radio"
 						name="folder"
-						checked={isFile}
-					/>
+						checked={isFile}></input>
 				</label>
 				<label htmlFor="file">
 					Document
@@ -38,8 +36,7 @@ export default function Form({
 						onChange={handleRadioChange}
 						type="radio"
 						name="file"
-						checked={!isFile}
-					/>
+						checked={!isFile}></input>
 				</label>
 			</div>
 			<button type="submit">Submit</button>

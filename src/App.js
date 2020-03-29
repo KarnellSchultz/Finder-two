@@ -30,16 +30,6 @@ export default function App() {
 		setCount(count + 1);
 		return count;
 	}
-	function handleBackButtonClick(e) {
-		e.preventDefault();
-		let tempParentFolder = files.filter(item => item.id === currentFolderId);
-		return setCurrentFolderId(tempParentFolder[0].parentID);
-	}
-
-	function handleFolderClick(e, tempID) {
-		e.preventDefault();
-		setCurrentFolderId(tempID);
-	}
 
 	const createFolder = () => {
 		const newFile = {
@@ -51,6 +41,16 @@ export default function App() {
 		setFiles([...files, newFile]);
 	};
 
+	function handleBackButtonClick(e) {
+		e.preventDefault();
+		let tempParentFolder = files.filter(item => item.id === currentFolderId);
+		return setCurrentFolderId(tempParentFolder[0].parentID);
+	}
+
+	function handleFolderClick(e, tempID) {
+		e.preventDefault();
+		setCurrentFolderId(tempID);
+	}
 	const handleRadioChange = () => {
 		setIsFile(!isFile);
 	};
