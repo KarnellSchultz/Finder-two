@@ -14,12 +14,6 @@ export default function App() {
 			parentID: 0,
 			type: 'file',
 		},
-		{
-			id: 3,
-			name: 'Maps',
-			parentID: 0,
-			type: 'file',
-		},
 	];
 	const [text, setText] = useState('');
 	const [count, setCount] = useState(3);
@@ -47,7 +41,6 @@ export default function App() {
 		files.map(file =>
 			file.parentID === currentFolderId ? currentView.push(file) : null,
 		);
-		console.table(currentView);
 		return currentView.map((item, index) => {
 			return (
 				<li key={item.id}>
