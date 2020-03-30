@@ -74,9 +74,16 @@ export default function App() {
 		}
 	};
 
+	const getData = async () => {
+		let data = await fetch('http://localhost:5001/');
+		let result = await data.text();
+		console.log(result);
+	};
+
 	return (
 		<>
 			<FolderHeading />
+			<button onClick={() => getData()}>Click</button>
 			<Form
 				handleRadioChange={handleRadioChange}
 				handleTextChange={handleTextChange}

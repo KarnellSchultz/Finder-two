@@ -12,6 +12,7 @@ export default function Form({
 			onSubmit={e => {
 				handleSubmit(e);
 			}}>
+			<h3>Create New</h3>
 			<input
 				type="text"
 				name="input"
