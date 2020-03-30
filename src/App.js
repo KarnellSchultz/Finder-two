@@ -52,7 +52,7 @@ export default function App() {
 
 	const createFolder = () => {
 		const newFile = {
-			id: files.length + 1,
+			_id: files.length + 1,
 			name: text,
 			parentID: currentFolderId,
 			type: isFile ? 'file' : 'document',
@@ -62,7 +62,7 @@ export default function App() {
 
 	function handleBackButtonClick(e) {
 		e.preventDefault();
-		let tempParentFolder = files.filter(item => item.id === currentFolderId);
+		let tempParentFolder = files.filter(item => item._id === currentFolderId);
 		return setCurrentFolderId(tempParentFolder[0].parentID);
 	}
 
@@ -86,7 +86,7 @@ export default function App() {
 
 	const FolderHeading = () => {
 		if (currentFolderId) {
-			let heading = files.filter(item => item.id === currentFolderId);
+			let heading = files.filter(item => item._id === currentFolderId);
 			return <h1>{heading[0].name}</h1>;
 		} else {
 			return <h1>Root</h1>;
