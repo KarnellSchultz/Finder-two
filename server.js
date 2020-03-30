@@ -11,11 +11,10 @@ const Datastore = require('nedb');
 const database = new Datastore('database.db');
 
 database.loadDatabase();
-// database.insert({ name: 'bob ', status: '🆔' });
 
 app.get('/', (req, res) => {
-	console.log('new request');
-	return res.send('YOU DID IT FAM');
+	console.log('Root / Hit');
+	return res.send('Make a GET to /files ');
 });
 
 app.get('/files', (req, res) => {
@@ -23,7 +22,17 @@ app.get('/files', (req, res) => {
 	// reply with all files
 	return database.find({}, function(err, docs) {
 		if (err) return err;
-		else res.json(docs);
+		else {
+			console.log(docs.length);
+			return res.json(docs);
+		}
+	});
+});
+
+app.get('/count', (req, res) => {
+	return database.find({ id }, (err, docs) => {
+		if (err) return err;
+		else return docs.length;
 	});
 });
 

@@ -9,15 +9,16 @@ export default function View({
 	function CreateListOfItemsToRender({ files }) {
 		let currentView = [];
 		files.map(item => {
-			console.log(item, currentFolderId);
 			return item.parentID === currentFolderId && item.type === renderType
 				? currentView.push(item)
 				: null;
 		});
 		const view = currentView.map(item => (
-			<li key={item.id}>
+			<li key={item._id}>
 				{item.type === 'file' ? (
-					<button className="file" onClick={e => handleFolderClick(e, item.id)}>
+					<button
+						className="file"
+						onClick={e => handleFolderClick(e, item._id)}>
 						{item.name}
 					</button>
 				) : (

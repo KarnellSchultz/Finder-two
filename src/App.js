@@ -1,30 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Form from './Form';
 import View from './View';
 
 export default function App() {
-	let tempFiles = [
-		{
-			id: 1,
-			name: 'Home',
-			parentID: 0,
-			type: 'file',
-		},
-		{
-			id: 2,
-			name: 'document!',
-			parentID: 0,
-			type: 'document',
-		},
-	];
-
 	const [text, setText] = useState('');
-	const [count, setCount] = useState(3);
-	const [isFile, setIsFile] = useState(true);
+	const [isFile, setIsFile] = useState(() => true);
 
-	const [files, setFiles] = useState(tempFiles);
+	const [isLoading, setIsLoading] = useState(false);
+	const [files, setFiles] = useState(() => getFiles());
 	const [currentFolderId, setCurrentFolderId] = useState(0);
+	const [count, setCount] = useState(async () => 0);
+
+	useEffect(() => {
+		setCount(files.length + 1);
+		console.log(files.length);
+		console.log(files);
+	}, [files]);
+
+	async function getFiles() {
+		setIsLoading(true);
+		let data = await fetch('http://localhost:9000/files');
+		const text = await data.text();
+		setFiles(JSON.parse(text));
+		setIsLoading(false);
+	}
+
+	// const option = {
+	// 	method: 'POST', // or 'PUT'
+	// 	body: JSON.stringify(tempFile),
+	// 	headers: {
+	// 		'Content-Type': 'application/json',
+	// 	}}
+
+	async function postNewFileToDataBase(tempFile) {
+		let response = await fetch('http://localhost:9000/files', {
+			method: 'POST', // or 'PUT'
+			body: JSON.stringify(tempFile),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+
+		console.log(response.statusText);
+	}
 
 	function nextId() {
 		setCount(count + 1);
@@ -33,12 +52,12 @@ export default function App() {
 
 	const createFolder = () => {
 		const newFile = {
-			id: nextId(),
+			id: files.length + 1,
 			name: text,
 			parentID: currentFolderId,
 			type: isFile ? 'file' : 'document',
 		};
-		setFiles([...files, newFile]);
+		postNewFileToDataBase(newFile);
 	};
 
 	function handleBackButtonClick(e) {
@@ -74,36 +93,11 @@ export default function App() {
 		}
 	};
 
-	const getData = async () => {
-		let data = await fetch('http://localhost:9000/files');
-		let result = await data.text();
-		console.log(result);
-	};
-
-	const data = { username: 'BOOOYYYYYY' };
-
-	async function postTest() {
-		let response = await fetch('http://localhost:9000/files', {
-			method: 'POST', // or 'PUT'
-			body: JSON.stringify(data),
-			headers: {
-				'Content-Type': 'application/json',
-				// 'Content-Type': 'application/x-www-form-urlencoded',
-			},
-		});
-
-		console.log(response.statusText);
-	}
-
-	// get files
-
-	//post files
-
 	return (
 		<>
 			<FolderHeading />
-			<button onClick={getData}>GET</button>
-			<button onClick={postTest}>POST</button>
+			<button onClick={getFiles}>GET</button>
+			{/* <button onClick={postNewFileToDataBase}>POST</button> */}
 			<Form
 				handleRadioChange={handleRadioChange}
 				handleTextChange={handleTextChange}
@@ -118,19 +112,22 @@ export default function App() {
 			) : (
 				<button onClick={e => handleBackButtonClick(e)}>..</button>
 			)}
-			<View
-				handleFolderClick={handleFolderClick}
-				currentFolderId={currentFolderId}
-				files={files}
-				renderType={'file'}
-			/>
-
-			<View
-				handleFolderClick={handleFolderClick}
-				currentFolderId={currentFolderId}
-				files={files}
-				renderType={'document'}
-			/>
+			{!isLoading && (
+				<View
+					handleFolderClick={handleFolderClick}
+					currentFolderId={currentFolderId}
+					files={files}
+					renderType={'file'}
+				/>
+			)}
+			{!isLoading && (
+				<View
+					handleFolderClick={handleFolderClick}
+					currentFolderId={currentFolderId}
+					files={files}
+					renderType={'document'}
+				/>
+			)}
 		</>
 	);
 }
