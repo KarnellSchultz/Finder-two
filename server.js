@@ -1,7 +1,15 @@
 const express = require('express');
 const app = express();
 var cors = require('cors');
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 9000;
+
+const store = require('data-store')('abc', {
+	path: 'Users/karnell.schultz/Documents/javaScript/finderApp/data-store',
+});
+
+store.set('abz', '123');
+
+console.log(store);
 
 app.use(cors());
 

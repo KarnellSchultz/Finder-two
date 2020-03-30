@@ -75,10 +75,14 @@ export default function App() {
 	};
 
 	const getData = async () => {
-		let data = await fetch('http://localhost:5001/');
+		let data = await fetch('http://localhost:9000/');
 		let result = await data.text();
 		console.log(result);
 	};
+
+	// get files
+
+	//post files
 
 	return (
 		<>
