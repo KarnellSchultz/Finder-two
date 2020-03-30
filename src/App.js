@@ -75,10 +75,25 @@ export default function App() {
 	};
 
 	const getData = async () => {
-		let data = await fetch('http://localhost:9000/');
+		let data = await fetch('http://localhost:9000/files');
 		let result = await data.text();
 		console.log(result);
 	};
+
+	const data = { username: 'BOOOYYYYYY' };
+
+	async function postTest() {
+		let response = await fetch('http://localhost:9000/files', {
+			method: 'POST', // or 'PUT'
+			body: JSON.stringify(data),
+			headers: {
+				'Content-Type': 'application/json',
+				// 'Content-Type': 'application/x-www-form-urlencoded',
+			},
+		});
+
+		console.log(response.statusText);
+	}
 
 	// get files
 
@@ -87,7 +102,8 @@ export default function App() {
 	return (
 		<>
 			<FolderHeading />
-			<button onClick={() => getData()}>Click</button>
+			<button onClick={getData}>GET</button>
+			<button onClick={postTest}>POST</button>
 			<Form
 				handleRadioChange={handleRadioChange}
 				handleTextChange={handleTextChange}
