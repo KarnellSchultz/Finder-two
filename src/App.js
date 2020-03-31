@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Form from './Form';
 import View from './View';
+import Breadcrumbs from './Breadcrumbs';
 
 export default function App() {
 	const [userInputText, setUserInputText] = useState('');
@@ -93,7 +94,9 @@ export default function App() {
 	return (
 		<>
 			<FolderHeading />
-			{/* <button onClick={postNewFileToDataBase}>POST</button> */}
+			{files.length > 1 && (
+				<Breadcrumbs currentFolderId={currentFolderId} files={files} />
+			)}
 			<Form
 				handleRadioChange={handleRadioChange}
 				handleTextChange={handleTextChange}
