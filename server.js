@@ -18,8 +18,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/files", (req, res) => {
-  console.log({ EndpointGET: "/files" });
-  // reply with all files
+  console.log({ GET: "/files" });
+
   return database.find({}, (err, docs) => {
     if (err) return err;
     else {
@@ -29,16 +29,23 @@ app.get("/files", (req, res) => {
   });
 });
 
+// app.get("/count", (req, res) => {
+//   // Count all documents in the datastore
+//   return database.count({}, function(err, count) {
+//     res.json(count);
+//   });
+// });
+
 app.delete("/remove/:id", (req, res) => {
   let { id } = req.params;
   console.log(`Removing: ${id}`);
   console.log(parseInt(id, 10));
-  id = parseInt(id, 10);
 
   database.find({ _id: id }, {}, (err, result) => {
     console.log(result.name);
   });
 
+  id = parseInt(id, 10);
   return database.remove({ _id: id }, {}, (err, numRemoved) => {
     if (err) {
       console.error(err);
@@ -56,4 +63,4 @@ app.post("/files", (req, res) => {
   res.send({ status: 201 });
 });
 
-app.listen(port, () => console.log(` 🍒🚄🍒Port:${port}`));
+app.listen(port, () => console.log(` 🍒🚄🍒Port:${port}🍒🚄🍒`));

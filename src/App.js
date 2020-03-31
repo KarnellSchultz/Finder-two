@@ -31,12 +31,17 @@ export default function App() {
       headers: {
         "Content-Type": "application/json"
       }
-    });
+    }).then();
     getFiles();
     console.log(response.statusText);
   }
 
+  // const createId = () => {
+  //   files.length == null || fil 0 ?
+  // }
+
   const createFolder = () => {
+    console.log(files.length);
     const newFile = {
       _id: files.length + 1,
       name: userInputText,
