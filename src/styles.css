@@ -1,39 +1,50 @@
 *,
 html {
-	margin: 0.2rem;
-	padding: 0.2rem;
+  margin: 0.2rem;
+  padding: 0.2rem;
 }
 body {
-	font-size: 16px;
-	display: flex;
-	flex-direction: column;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-		Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 button {
-	padding: 1rem;
-	margin: 1rem;
-	background: palegreen;
-	border-radius: 4px;
-	border: none;
+  padding: 1rem;
+  margin: 1rem;
+  background: palegreen;
+  border-radius: 4px;
+  border: none;
 }
 button:hover,
 button:active {
-	background: greenyellow;
+  background: greenyellow;
 }
 button.file {
-	background: palevioletred;
+  background: palevioletred;
 }
 button.document {
-	background: palegoldenrod;
+  background: palegoldenrod;
 }
 button.document:hover {
-	background: rgb(245, 241, 191);
+  background: rgb(245, 241, 191);
 }
 
 button.file:hover {
-	background: #d87050;
+  background: #d87050;
 }
 li {
-	list-style: armenian;
+  list-style: armenian;
+}
+
+.breadcrumbs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background: linear-gradient(palegreen, palegoldenrod);
+}
+
+.breadcrumbs li {
+  list-style-type: none;
 }

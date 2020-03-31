@@ -1,27 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import CrumbsDisplay from "./CrumbsDisplay";
 
 export default function Breadcrumbs({ files, currentFolderId }) {
-	displayBread();
+  const [breadArray, setBreadArray] = useState([]);
 
-	function displayBread() {
-		let result = '';
-		let currentFileTarget;
-		let tempCurrentFolderID = currentFolderId;
-		console.log(currentFolderId);
-		console.log(files.filter(item => item._id === currentFolderId));
+  let crumbBuilderArray = [];
 
-		if (tempCurrentFolderID === 0) {
-			return (result += 'Root!');
-		} else if (tempCurrentFolderID !== 0) {
-			currentFileTarget = files.filter(
-				file => file._id === tempCurrentFolderID,
-			);
-			console.log({ currentFileTarget });
-			return (result += currentFileTarget[0].name);
-		}
+  function displayBread(tempCurrentFolderId) {
+    if (tempCurrentFolderId === 0) {
+      return crumbBuilderArray.push("Root 🌳");
+    } else if (tempCurrentFolderId !== 0) {
+      let currentFolder = files.filter(
+        item => item._id === tempCurrentFolderId
+      );
+      crumbBuilderArray.push(currentFolder[0].name);
+      return displayBread(currentFolder[0].parentID);
+    }
+    return null;
+  }
 
-		return result;
-	}
+  useEffect(() => {
+    displayBread(currentFolderId);
+    setBreadArray(crumbBuilderArray);
+    // eslint-disable-next-line
+  }, [currentFolderId]);
 
-	return <div>{displayBread()}</div>;
+  return <CrumbsDisplay breadArray={breadArray} />;
 }
