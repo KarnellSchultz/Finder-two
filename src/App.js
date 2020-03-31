@@ -4,16 +4,14 @@ import Form from './Form';
 import View from './View';
 
 export default function App() {
-	const [text, setText] = useState('');
+	const [userInputText, setUserInputText] = useState('');
 	const [isFile, setIsFile] = useState(() => true);
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [files, setFiles] = useState(() => getFiles());
 	const [currentFolderId, setCurrentFolderId] = useState(0);
-	const [count, setCount] = useState(async () => 0);
 
 	useEffect(() => {
-		setCount(files.length + 1);
 		console.log(files.length);
 		console.log(files);
 	}, [files]);
@@ -41,19 +39,14 @@ export default function App() {
 				'Content-Type': 'application/json',
 			},
 		});
-
+		getFiles();
 		console.log(response.statusText);
-	}
-
-	function nextId() {
-		setCount(count + 1);
-		return count;
 	}
 
 	const createFolder = () => {
 		const newFile = {
 			_id: files.length + 1,
-			name: text,
+			name: userInputText,
 			parentID: currentFolderId,
 			type: isFile ? 'file' : 'document',
 		};
@@ -76,12 +69,16 @@ export default function App() {
 
 	const handleTextChange = e => {
 		e.preventDefault();
-		setText(e.currentTarget.value);
+		setUserInputText(e.currentTarget.value);
 	};
 	const handleSubmit = e => {
 		e.preventDefault();
-		text.length > 0 && createFolder();
-		setText('');
+		if (userInputText.length === 0) {
+			alert('Add a name before submitting');
+		} else {
+			createFolder();
+			setUserInputText('');
+		}
 	};
 
 	const FolderHeading = () => {
@@ -96,14 +93,13 @@ export default function App() {
 	return (
 		<>
 			<FolderHeading />
-			<button onClick={getFiles}>GET</button>
 			{/* <button onClick={postNewFileToDataBase}>POST</button> */}
 			<Form
 				handleRadioChange={handleRadioChange}
 				handleTextChange={handleTextChange}
 				handleSubmit={handleSubmit}
 				isFile={isFile}
-				text={text}
+				userInputText={userInputText}
 			/>
 			{currentFolderId === 0 ? (
 				<button disabled onClick={e => handleBackButtonClick(e)}>

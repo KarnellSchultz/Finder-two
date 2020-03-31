@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Form({
 	handleSubmit,
-	text,
+	userInputText,
 	handleRadioChange,
 	isFile = true,
 	handleTextChange,
@@ -18,7 +18,7 @@ export default function Form({
 				name="input"
 				id="input"
 				placeholder="input"
-				value={text}
+				value={userInputText}
 				onChange={e => {
 					handleTextChange(e);
 				}}></input>

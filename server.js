@@ -29,21 +29,10 @@ app.get('/files', (req, res) => {
 	});
 });
 
-app.get('/count', (req, res) => {
-	return database.find({ id }, (err, docs) => {
-		if (err) return err;
-		else return docs.length;
-	});
-});
-
 app.post('/files', (req, res) => {
 	console.log(req.body);
 	database.insert(req.body);
 	res.send({ status: 201 });
 });
 
-app.get('/express_backend', (req, res) => {
-	res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
-});
-
-app.listen(port, () => console.log(`Shits on port ${port}`));
+app.listen(port, () => console.log(` 🍒🚄🍒Port:${port}`));
