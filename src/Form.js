@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 
-export default function Form({
-  handleSubmit,
-  handleRadioChange,
-  isFile = true
-}) {
+export default function Form({ handleSubmit, handleRadioChange }) {
   const [inputText, setInputText] = useState("");
+  const [isFile, setIsFile] = useState(true);
 
   const handleTextChange = e => {
     e.preventDefault();
@@ -15,7 +12,7 @@ export default function Form({
     <form
       onSubmit={e => {
         setInputText("");
-        handleSubmit(e, inputText);
+        handleSubmit(e, inputText, isFile);
       }}
     >
       <h3>Create New</h3>
@@ -33,7 +30,7 @@ export default function Form({
         <label htmlFor="folder">
           File
           <input
-            onChange={handleRadioChange}
+            onChange={() => setIsFile(!isFile)}
             type="radio"
             name="folder"
             checked={isFile}
@@ -42,7 +39,7 @@ export default function Form({
         <label htmlFor="file">
           Document
           <input
-            onChange={handleRadioChange}
+            onChange={() => setIsFile(!isFile)}
             type="radio"
             name="file"
             checked={!isFile}

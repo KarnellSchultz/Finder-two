@@ -14,8 +14,6 @@ import Breadcrumbs from "./Breadcrumbs";
 // ];
 
 export default function App() {
-  const [isFile, setIsFile] = useState(() => true);
-
   const [isLoading, setIsLoading] = useState(false);
   const [files, setFiles] = useState([
     {
@@ -63,7 +61,7 @@ export default function App() {
   //   files.length == null || fil 0 ?
   // }
 
-  const createFolder = inputText => {
+  const createFolder = (inputText, isFile) => {
     //  console.log(files);
     const newFile = {
       _id: files.length + 1,
@@ -84,16 +82,13 @@ export default function App() {
     e.preventDefault();
     setCurrentFolderId(tempID);
   }
-  const handleRadioChange = () => {
-    setIsFile(!isFile);
-  };
 
-  const handleSubmit = (e, inputText) => {
+  const handleSubmit = (e, inputText, isFile) => {
     e.preventDefault();
     if (inputText.length === 0) {
       alert("Add a name before submitting");
     } else {
-      createFolder(inputText);
+      createFolder(inputText, isFile);
       console.log(files);
     }
   };
@@ -134,11 +129,7 @@ export default function App() {
     <>
       <FolderHeading />
       {files && <Breadcrumbs currentFolderId={currentFolderId} files={files} />}
-      <Form
-        handleRadioChange={handleRadioChange}
-        handleSubmit={handleSubmit}
-        isFile={isFile}
-      />
+      <Form handleSubmit={handleSubmit} />
       <BackButtonDisplay />
       {!isLoading && files && (
         <View
@@ -149,7 +140,7 @@ export default function App() {
           renderType={"file"}
         />
       )}
-      {/* {!isLoading && files && (
+      {!isLoading && files && (
         <View
           handleFolderClick={handleFolderClick}
           currentFolderId={currentFolderId}
@@ -157,7 +148,7 @@ export default function App() {
           handleDeleteClick={handleDeleteClick}
           renderType={"document"}
         />
-      )} */}
+      )}
     </>
   );
 }
