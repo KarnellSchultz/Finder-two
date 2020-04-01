@@ -7,13 +7,16 @@ export default function View({
   handleFolderClick,
   handleDeleteClick
 }) {
-  function CreateListOfItemsToRender({ files }) {
+  function CreateListOfItemsToRender() {
     let currentView = [];
+
     files.map(item => {
+      console.log(item);
       return item.parentID === currentFolderId && item.type === renderType
         ? currentView.push(item)
         : null;
     });
+
     const view = currentView.map(item => (
       <li key={item._id}>
         {item.type === "file" ? (
@@ -42,6 +45,5 @@ export default function View({
     return <ul> {view}</ul>;
   }
 
-  // return <ul>{createListOfItemsToRender(files)}</ul>;
-  return <CreateListOfItemsToRender files={files} />;
+  return <CreateListOfItemsToRender />;
 }

@@ -20,10 +20,11 @@ app.get("/", (req, res) => {
 app.get("/files", (req, res) => {
   console.log({ GET: "/files" });
 
-  return database.find({}, (err, docs) => {
-    if (err) return err;
-    else {
-      console.log(docs.length);
+  database.find({}, (err, docs) => {
+    if (err) {
+      return console.log(err);
+    } else {
+      console.log(docs);
       return res.json(docs);
     }
   });

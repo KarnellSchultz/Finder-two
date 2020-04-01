@@ -1,27 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Form from "./Form";
 import View from "./View";
 import Breadcrumbs from "./Breadcrumbs";
 
+// const home = [
+//   {
+//     _id: 0,
+//     name: "Home",
+//     parentID: 0,
+//     type: "file"
+//   }
+// ];
+
 export default function App() {
-  const [userInputText, setUserInputText] = useState("");
   const [isFile, setIsFile] = useState(() => true);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [files, setFiles] = useState(() => getFiles());
+  const [files, setFiles] = useState([
+    {
+      _id: 0,
+      name: "Home",
+      parentID: 0,
+      type: "file"
+    }
+  ]);
   const [currentFolderId, setCurrentFolderId] = useState(0);
+
+  useEffect(() => {
+    getFiles();
+  }, []);
 
   async function getFiles() {
     setIsLoading(true);
-    try {
-      let data = await fetch("http://localhost:9000/files");
-      const text = await data.text();
-      setFiles(JSON.parse(text));
-      setIsLoading(false);
-    } catch (err) {
-      console.error(`Server Error ☠️ is the server on? ${err}`);
-    }
+    const data = await fetch("http://localhost:9000/files", {
+      method: "GET", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    console.log(data);
+    const json = await data.json();
+    console.log(json);
+    setIsLoading(false);
+    return setFiles(json);
+    // console.error(`Server Error ☠️ is the server on? ${err}`);
   }
 
   async function postNewFileToDataBase(tempFile) {
@@ -31,7 +54,7 @@ export default function App() {
       headers: {
         "Content-Type": "application/json"
       }
-    }).then();
+    });
     getFiles();
     console.log(response.statusText);
   }
@@ -40,11 +63,11 @@ export default function App() {
   //   files.length == null || fil 0 ?
   // }
 
-  const createFolder = () => {
-    console.log(files.length);
+  const createFolder = inputText => {
+    //  console.log(files);
     const newFile = {
       _id: files.length + 1,
-      name: userInputText,
+      name: inputText,
       parentID: currentFolderId,
       type: isFile ? "file" : "document"
     };
@@ -65,17 +88,13 @@ export default function App() {
     setIsFile(!isFile);
   };
 
-  const handleTextChange = e => {
+  const handleSubmit = (e, inputText) => {
     e.preventDefault();
-    setUserInputText(e.currentTarget.value);
-  };
-  const handleSubmit = e => {
-    e.preventDefault();
-    if (userInputText.length === 0) {
+    if (inputText.length === 0) {
       alert("Add a name before submitting");
     } else {
-      createFolder();
-      setUserInputText("");
+      createFolder(inputText);
+      console.log(files);
     }
   };
   const handleDeleteClick = async (e, _id) => {
@@ -88,7 +107,7 @@ export default function App() {
       }
     })
       .then(response => response.json())
-      .then(data => null);
+      .then(json => console.log(json));
     getFiles();
   };
 
@@ -114,18 +133,14 @@ export default function App() {
   return (
     <>
       <FolderHeading />
-      {files.length > 1 && (
-        <Breadcrumbs currentFolderId={currentFolderId} files={files} />
-      )}
+      {files && <Breadcrumbs currentFolderId={currentFolderId} files={files} />}
       <Form
         handleRadioChange={handleRadioChange}
-        handleTextChange={handleTextChange}
         handleSubmit={handleSubmit}
         isFile={isFile}
-        userInputText={userInputText}
       />
       <BackButtonDisplay />
-      {!isLoading && (
+      {!isLoading && files && (
         <View
           handleFolderClick={handleFolderClick}
           currentFolderId={currentFolderId}
@@ -134,7 +149,7 @@ export default function App() {
           renderType={"file"}
         />
       )}
-      {!isLoading && (
+      {/* {!isLoading && files && (
         <View
           handleFolderClick={handleFolderClick}
           currentFolderId={currentFolderId}
@@ -142,7 +157,7 @@ export default function App() {
           handleDeleteClick={handleDeleteClick}
           renderType={"document"}
         />
-      )}
+      )} */}
     </>
   );
 }
