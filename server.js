@@ -8,7 +8,7 @@ const cors = require("cors");
 app.use(cors());
 
 const Datastore = require("nedb");
-const database = new Datastore("database.db");
+const database = new Datastore("data.db");
 
 database.loadDatabase();
 
@@ -19,6 +19,7 @@ app.get("/", (req, res) => {
 
 app.get("/files", (req, res) => {
   console.log({ GET: "/files" });
+  // console.log(database);
 
   database.find({}, (err, docs) => {
     if (err) {
@@ -43,7 +44,7 @@ app.delete("/remove/:id", (req, res) => {
   console.log(parseInt(id, 10));
 
   database.find({ _id: id }, {}, (err, result) => {
-    console.log(result.name);
+    console.log(`DELETED💣: ${result.name}`);
   });
 
   id = parseInt(id, 10);

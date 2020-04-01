@@ -12,3 +12,4 @@
 {"_id":14,"name":"jhobojh","parentID":11,"type":"file"}
 {"_id":15,"name":"lnlk","parentID":7,"type":"file"}
 {"_id":16,"name":"new doc","parentID":1,"type":"document"}
+{"$$deleted":true,"_id":14}
