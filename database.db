@@ -2,3 +2,13 @@
 { _id: 1, name: 't', parentID: 0, type: 'file' }
 { _id: 2, name: 'ot', parentID: 0, type: 'file' }{"_id":5,"name":"sdgdsg","parentID":0,"type":"document"}
 {"_id":6,"name":"karnell","parentID":0,"type":"document"}
+{"_id":7,"name":"u","parentID":2,"type":"file"}
+{"_id":8,"name":"me","parentID":2,"type":"file"}
+{"_id":9,"name":"p","parentID":2,"type":"file"}
+{"_id":10,"name":"y","parentID":7,"type":"file"}
+{"_id":11,"name":"nn","parentID":10,"type":"file"}
+{"_id":12,"name":",l","parentID":10,"type":"file"}
+{"_id":13,"name":"jk","parentID":10,"type":"file"}
+{"_id":14,"name":"jhobojh","parentID":11,"type":"file"}
+{"_id":15,"name":"lnlk","parentID":7,"type":"file"}
+{"_id":16,"name":"new doc","parentID":1,"type":"document"}

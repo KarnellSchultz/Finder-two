@@ -62,7 +62,6 @@ export default function App() {
   // }
 
   const createFolder = (inputText, isFile) => {
-    //  console.log(files);
     const newFile = {
       _id: files.length + 1,
       name: inputText,

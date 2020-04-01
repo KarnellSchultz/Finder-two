@@ -11,7 +11,6 @@ export default function View({
     let currentView = [];
 
     files.map(item => {
-      console.log(item);
       return item.parentID === currentFolderId && item.type === renderType
         ? currentView.push(item)
         : null;

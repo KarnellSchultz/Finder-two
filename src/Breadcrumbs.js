@@ -5,7 +5,6 @@ export default function Breadcrumbs({ files, currentFolderId }) {
   const [breadArray, setBreadArray] = useState([]);
 
   let crumbBuilderArray = [];
-
   function displayBread(tempCurrentFolderId) {
     if (tempCurrentFolderId === 0) {
       return crumbBuilderArray.push("Root 🌳");
@@ -16,14 +15,22 @@ export default function Breadcrumbs({ files, currentFolderId }) {
       crumbBuilderArray.push(currentFolder[0].name);
       return displayBread(currentFolder[0].parentID);
     }
-    return null;
   }
+
+  const updateBreadArray = () => {
+    crumbBuilderArray.reverse();
+    setBreadArray(crumbBuilderArray);
+  };
 
   useEffect(() => {
     displayBread(currentFolderId);
-    setBreadArray(crumbBuilderArray);
+    updateBreadArray();
     // eslint-disable-next-line
   }, [currentFolderId]);
 
-  return <CrumbsDisplay breadArray={breadArray} />;
+  return (
+    <div>
+      <CrumbsDisplay breadArray={breadArray} />
+    </div>
+  );
 }
