@@ -15,8 +15,11 @@ export default function Form({ handleSubmit, handleRadioChange }) {
         handleSubmit(e, inputText, isFile);
       }}
     >
-      <h3>Create New</h3>
+      <div className="create-container">
+        <h3 className="create-heading">Create New</h3>
+      </div>
       <input
+        className="input"
         type="text"
         name="input"
         id="input"
@@ -28,22 +31,22 @@ export default function Form({ handleSubmit, handleRadioChange }) {
       ></input>
       <div className="radio">
         <label htmlFor="folder">
-          File
           <input
             onChange={() => setIsFile(!isFile)}
             type="radio"
             name="folder"
             checked={isFile}
           ></input>
+          File
         </label>
         <label htmlFor="file">
-          Document
           <input
             onChange={() => setIsFile(!isFile)}
             type="radio"
             name="file"
             checked={!isFile}
           ></input>
+          Document
         </label>
       </div>
       <button type="submit">Submit</button>

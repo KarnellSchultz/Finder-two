@@ -18,10 +18,10 @@ export default function View({
 
     const view = currentView.map(item => (
       <li key={item._id}>
-        {item.type === renderType ? (
+        {item.type === "file" ? (
           <>
             <button
-              className={renderType}
+              className={item.type}
               onClick={e => handleFolderClick(e, item._id)}
             >
               {item.name}
@@ -31,17 +31,26 @@ export default function View({
                 handleDeleteClick(e, item._id);
               }}
             >
-              {" "}
-              💣
+              {"💣"}
             </button>
           </>
         ) : (
-          <button className={item.type}>{item.name}</button>
+          <>
+            <button className={item.type}>{item.name}</button>
+            <button
+              onClick={e => {
+                handleDeleteClick(e, item._id);
+              }}
+            >
+              {" "}
+              {"💣"}
+            </button>
+          </>
         )}
       </li>
     ));
 
-    return <ul> {view}</ul>;
+    return <ul>{view}</ul>;
   }
 
   return <CreateListOfItemsToRender />;

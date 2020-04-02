@@ -27,7 +27,7 @@ export default function App() {
 
   useEffect(() => {
     getFiles();
-  }, []);
+  }, [currentFolderId]);
 
   async function getFiles() {
     setIsLoading(true);
@@ -104,13 +104,15 @@ export default function App() {
       }
     })
       .then(response => response.json())
-      .then(json => console.log(json));
+      .then(json => {
+        // console.log(`Removed`:json);
+        return getFiles();
+      });
   };
 
   const handleDeleteClick = async (e, _id) => {
     e.preventDefault();
     deleteItem(_id);
-    getFiles();
   };
 
   const FolderHeading = () => {

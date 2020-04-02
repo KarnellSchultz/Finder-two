@@ -40,11 +40,16 @@ app.get("/files", (req, res) => {
 app.delete("/remove/:id", (req, res) => {
   let { id } = req.params;
   id = parseInt(id, 10); // converting the id into a number
-  database.find({}, (err, docs) => {
-    if (err) console.log(err);
-    else deleteItem(id);
+  // deleteItem(id);
+  database.remove({ _id: id }, {}, (err, numRemoved) => {
+    if (err) {
+      return console.error(err);
+    } else {
+      console.log(`Removed: ✅ ${numRemoved}`);
+      return res.json(id);
+    }
   });
-  return res.json("deleted item");
+  // return res.json(id);
 });
 
 function deleteItem(id) {
