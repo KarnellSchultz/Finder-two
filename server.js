@@ -41,13 +41,17 @@ app.get("/files", (req, res) => {
 app.delete("/remove/:id", (req, res) => {
   let { id } = req.params;
   console.log(`Removing: ${id}`);
-  console.log(parseInt(id, 10));
 
-  database.find({ _id: id }, {}, (err, result) => {
-    console.log(`DELETED💣: ${result.name}`);
+  id = parseInt(id, 10); // converting the id into a number
+
+  database.find({ _id: id }, (err, docs) => {
+    if (err) {
+      return console.log(err);
+    } else {
+      return console.log(` File Removed: 💥💥`, docs[0].name, `💥💥`);
+    }
   });
 
-  id = parseInt(id, 10);
   return database.remove({ _id: id }, {}, (err, numRemoved) => {
     if (err) {
       console.error(err);
@@ -65,4 +69,6 @@ app.post("/files", (req, res) => {
   res.send({ status: 201 });
 });
 
-app.listen(port, () => console.log(` 🍒🚄🍒Port:${port}🍒🚄🍒`));
+app.listen(port, () =>
+  console.log(` 🍒🚄🍒 🍒🚄🍒 🍒🚄🍒Port:${port}🍒🚄🍒 🍒🚄🍒 🍒🚄🍒`)
+);
