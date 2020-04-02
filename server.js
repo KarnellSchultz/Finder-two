@@ -39,47 +39,22 @@ app.get("/files", (req, res) => {
 
 app.delete("/remove/:id", (req, res) => {
   let { id } = req.params;
-  console.log(`Removing: ${id}`);
-
   id = parseInt(id, 10); // converting the id into a number
-
-  database.find({ _id: id }, (err, docs) => {
-    if (err) {
-      return console.log(err);
-    } else {
-      return console.log(` File Removed: 💥💥`, docs[0].name, `💥💥`);
-    }
+  database.find({}, (err, docs) => {
+    if (err) console.log(err);
+    else deleteItem(id);
   });
-
-  deleteChildFolders(id);
-
-  return database.remove({ _id: id }, {}, (err, numRemoved) => {
-    if (err) {
-      console.error(err);
-      return res.send(`Server Error when trying to remove document id: ${id}`);
-    } else {
-      console.log(`Removed: ✅ ${numRemoved}`);
-      return res.json(numRemoved);
-    }
-  });
+  return res.json("deleted item");
 });
 
-function findDocs() {
-  return database.find({}, (err, docs) => {
+function deleteItem(id) {
+  database.remove({ _id: id }, {}, (err, numRemoved) => {
     if (err) {
-      return console.log(err);
+      console.error(err);
     } else {
-      console.log("findDOCS", docs);
-      return docs;
+      console.log(`Removed: ✅ ${numRemoved}`);
     }
   });
-}
-
-function deleteChildFolders(deletedFileId) {
-  let tempDatabase = findDocs();
-
-  console.log({ tempDatabase });
-  // database.remove({_id:  })
 }
 
 app.post("/files", (req, res) => {

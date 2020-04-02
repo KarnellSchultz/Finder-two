@@ -18,8 +18,8 @@ export default function App() {
   const [files, setFiles] = useState([
     {
       _id: 0,
-      name: "Home",
       parentID: 0,
+      name: "Home",
       type: "file"
     }
   ]);
@@ -37,7 +37,6 @@ export default function App() {
         "Content-Type": "application/json"
       }
     });
-    console.log(data);
     const json = await data.json();
     console.log(json);
     setIsLoading(false);
@@ -59,6 +58,9 @@ export default function App() {
 
   const createId = () => {
     let count = files.length - 1;
+    if (count < 0) {
+      return (count *= -1);
+    }
     let newId = files[count]._id + 1;
     return newId;
   };
@@ -93,9 +95,8 @@ export default function App() {
       console.log(files);
     }
   };
-  const handleDeleteClick = async (e, _id) => {
-    e.preventDefault();
 
+  const deleteItem = _id => {
     fetch(`http://localhost:9000/remove/${_id}`, {
       method: "DELETE", // or 'PUT'
       headers: {
@@ -104,6 +105,11 @@ export default function App() {
     })
       .then(response => response.json())
       .then(json => console.log(json));
+  };
+
+  const handleDeleteClick = async (e, _id) => {
+    e.preventDefault();
+    deleteItem(_id);
     getFiles();
   };
 

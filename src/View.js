@@ -18,10 +18,10 @@ export default function View({
 
     const view = currentView.map(item => (
       <li key={item._id}>
-        {item.type === "file" ? (
+        {item.type === renderType ? (
           <>
             <button
-              className="file"
+              className={renderType}
               onClick={e => handleFolderClick(e, item._id)}
             >
               {item.name}
