@@ -57,15 +57,17 @@ export default function App() {
     console.log(response.statusText);
   }
 
-  // const createId = () => {
-  //   files.length == null || fil 0 ?
-  // }
+  const createId = () => {
+    let count = files.length - 1;
+    let newId = files[count]._id + 1;
+    return newId;
+  };
 
   const createFolder = (inputText, isFile) => {
     const newFile = {
-      _id: files.length + 1,
-      name: inputText,
+      _id: createId(),
       parentID: currentFolderId,
+      name: inputText,
       type: isFile ? "file" : "document"
     };
     postNewFileToDataBase(newFile);

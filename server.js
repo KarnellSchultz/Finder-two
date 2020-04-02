@@ -19,7 +19,6 @@ app.get("/", (req, res) => {
 
 app.get("/files", (req, res) => {
   console.log({ GET: "/files" });
-  // console.log(database);
 
   database.find({}, (err, docs) => {
     if (err) {
@@ -52,6 +51,8 @@ app.delete("/remove/:id", (req, res) => {
     }
   });
 
+  deleteChildFolders(id);
+
   return database.remove({ _id: id }, {}, (err, numRemoved) => {
     if (err) {
       console.error(err);
@@ -63,12 +64,28 @@ app.delete("/remove/:id", (req, res) => {
   });
 });
 
+function findDocs() {
+  return database.find({}, (err, docs) => {
+    if (err) {
+      return console.log(err);
+    } else {
+      console.log("findDOCS", docs);
+      return docs;
+    }
+  });
+}
+
+function deleteChildFolders(deletedFileId) {
+  let tempDatabase = findDocs();
+
+  console.log({ tempDatabase });
+  // database.remove({_id:  })
+}
+
 app.post("/files", (req, res) => {
   console.log(req.body);
   database.insert(req.body);
   res.send({ status: 201 });
 });
 
-app.listen(port, () =>
-  console.log(` 🍒🚄🍒 🍒🚄🍒 🍒🚄🍒Port:${port}🍒🚄🍒 🍒🚄🍒 🍒🚄🍒`)
-);
+app.listen(port, () => console.log(`🍒🍒🍒🍒🍒🍒${port}🍒🍒🍒🍒🍒🍒`));
