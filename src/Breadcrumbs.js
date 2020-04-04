@@ -2,29 +2,24 @@ import React, { useState, useEffect } from "react";
 import CrumbsDisplay from "./CrumbsDisplay";
 
 export default function Breadcrumbs({ files, currentFolderId }) {
-  const [breadArray, setBreadArray] = useState([]);
+  const initialState = [];
+  const [breadArray, setBreadArray] = useState(initialState);
 
-  let crumbBuilderArray = [];
   function displayBread(tempCurrentFolderId) {
     if (tempCurrentFolderId === 0) {
-      return crumbBuilderArray.push("Root 🌳");
+      return setBreadArray((prevState) => ["🗄 Root", ...prevState]);
     } else if (tempCurrentFolderId !== 0) {
       let currentFolder = files.filter(
-        item => item._id === tempCurrentFolderId
+        (item) => item._id === tempCurrentFolderId
       );
-      crumbBuilderArray.push(currentFolder[0].name);
+      setBreadArray((prevState) => [currentFolder[0].name, ...prevState]);
       return displayBread(currentFolder[0].parentID);
     }
   }
 
-  const updateBreadArray = () => {
-    crumbBuilderArray.reverse();
-    setBreadArray(crumbBuilderArray);
-  };
-
   useEffect(() => {
+    setBreadArray(initialState);
     displayBread(currentFolderId);
-    updateBreadArray();
     // eslint-disable-next-line
   }, [currentFolderId]);
 
