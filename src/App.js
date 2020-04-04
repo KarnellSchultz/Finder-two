@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import Form from "./Form";
 import View from "./View";
-import Breadcrumbs from "./Breadcrumbs";
+import { Layout } from "./Layout";
+// import Form from "./Form";
+// import Breadcrumbs from "./Breadcrumbs";
 
 // const home = [
 //   {
@@ -20,8 +21,8 @@ export default function App() {
       _id: 0,
       parentID: 0,
       name: "Home",
-      type: "file"
-    }
+      type: "file",
+    },
   ]);
   const [currentFolderId, setCurrentFolderId] = useState(0);
 
@@ -34,8 +35,8 @@ export default function App() {
     const data = await fetch("http://localhost:9000/files", {
       method: "GET", // or 'PUT'
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
     const json = await data.json();
     console.log(json);
@@ -49,8 +50,8 @@ export default function App() {
       method: "POST", // or 'PUT'
       body: JSON.stringify(tempFile),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
     getFiles();
     console.log(response.statusText);
@@ -70,14 +71,14 @@ export default function App() {
       _id: createId(),
       parentID: currentFolderId,
       name: inputText,
-      type: isFile ? "file" : "document"
+      type: isFile ? "file" : "document",
     };
     postNewFileToDataBase(newFile);
   };
 
   function handleBackButtonClick(e) {
     e.preventDefault();
-    let tempParentFolder = files.filter(item => item._id === currentFolderId);
+    let tempParentFolder = files.filter((item) => item._id === currentFolderId);
     return setCurrentFolderId(tempParentFolder[0].parentID);
   }
 
@@ -96,16 +97,15 @@ export default function App() {
     }
   };
 
-  const deleteItem = _id => {
+  const deleteItem = (_id) => {
     fetch(`http://localhost:9000/remove/${_id}`, {
       method: "DELETE", // or 'PUT'
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(response => response.json())
-      .then(json => {
-        // console.log(`Removed`:json);
+      .then((response) => response.json())
+      .then((json) => {
         return getFiles();
       });
   };
@@ -115,31 +115,13 @@ export default function App() {
     deleteItem(_id);
   };
 
-  const FolderHeading = () => {
-    if (currentFolderId) {
-      let heading = files.filter(item => item._id === currentFolderId);
-      return <h1>{heading[0].name}</h1>;
-    } else {
-      return <h1>Root</h1>;
-    }
-  };
-
-  const BackButtonDisplay = () => {
-    return currentFolderId === 0 ? (
-      <button disabled onClick={e => handleBackButtonClick(e)}>
-        Root
-      </button>
-    ) : (
-      <button onClick={e => handleBackButtonClick(e)}>..</button>
-    );
-  };
-
   return (
-    <>
-      <FolderHeading />
-      {files && <Breadcrumbs currentFolderId={currentFolderId} files={files} />}
-      <Form handleSubmit={handleSubmit} />
-      <BackButtonDisplay />
+    <Layout
+      handleSubmit={handleSubmit}
+      currentFolderId={currentFolderId}
+      files={files}
+      handleBackButtonClick={handleBackButtonClick}
+    >
       {!isLoading && files && (
         <View
           handleFolderClick={handleFolderClick}
@@ -158,6 +140,6 @@ export default function App() {
           renderType={"document"}
         />
       )}
-    </>
+    </Layout>
   );
 }

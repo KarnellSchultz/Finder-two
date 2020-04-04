@@ -1,3 +1,9 @@
+:root {
+  /* Colors */
+  --main-color: palegreen;
+  --main-color-accent: ;
+}
+
 *,
 html {
   margin: 0;
