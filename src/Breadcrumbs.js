@@ -24,8 +24,8 @@ export default function Breadcrumbs({ files, currentFolderId }) {
   }, [currentFolderId]);
 
   return (
-    <div>
+    <>
       <CrumbsDisplay breadArray={breadArray} />
-    </div>
+    </>
   );
 }

@@ -5,29 +5,29 @@ export default function View({
   files,
   currentFolderId,
   handleFolderClick,
-  handleDeleteClick
+  handleDeleteClick,
 }) {
   function CreateListOfItemsToRender() {
     let currentView = [];
 
-    files.map(item => {
+    files.map((item) => {
       return item.parentID === currentFolderId && item.type === renderType
         ? currentView.push(item)
         : null;
     });
 
-    const view = currentView.map(item => (
+    const view = currentView.map((item) => (
       <li key={item._id}>
         {item.type === "file" ? (
           <>
             <button
               className={item.type}
-              onClick={e => handleFolderClick(e, item._id)}
+              onClick={(e) => handleFolderClick(e, item._id)}
             >
               {item.name}
             </button>
             <button
-              onClick={e => {
+              onClick={(e) => {
                 handleDeleteClick(e, item._id);
               }}
             >
@@ -38,7 +38,7 @@ export default function View({
           <>
             <button className={item.type}>{item.name}</button>
             <button
-              onClick={e => {
+              onClick={(e) => {
                 handleDeleteClick(e, item._id);
               }}
             >
@@ -50,7 +50,24 @@ export default function View({
       </li>
     ));
 
-    return <ul>{view}</ul>;
+    const Heading = () => {
+      return (
+        <>
+          {renderType === "file" ? (
+            <h3 className={"view-heading"}>Files</h3>
+          ) : (
+            <h3 className={"view-heading"}>Documents</h3>
+          )}
+        </>
+      );
+    };
+
+    return (
+      <>
+        <Heading />
+        <ul>{view}</ul>
+      </>
+    );
   }
 
   return <CreateListOfItemsToRender />;

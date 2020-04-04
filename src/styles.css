@@ -2,33 +2,77 @@
   /* Colors */
   --main-color: palegreen;
   --main-color-accent: ;
+  --main-background: #fafafa;
+
+  --main-background-dark: #282c35;
 }
 
 *,
-html {
-  margin: 0;
-  padding: 0;
-}
+html,
 body {
-  font-size: 1rem;
-  margin: 0 2rem 2rem 2rem;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  background: var(--main-background);
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica,
+    Arial, sans-serif;
+  transition: all 300ms ease 200ms;
+}
+section {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1.5rem 5rem 1.5rem;
+  letter-spacing: 1.5px;
+  transition: all 300ms ease 200ms;
+}
+section h1 {
+  font-size: 3rem;
+  font-weight: 400;
 }
 
-h1 {
-  font-size: 3rem;
-  text-align: center;
-  background: palegoldenrod;
+section h2,
+h3,
+h4 {
+  font-size: 2rem;
+  font-weight: 350;
 }
-h2,
-h3 {
-  padding: 1rem 0 1rem 0;
-  font-size: 1.5rem;
+
+nav {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+nav section {
+  width: 100%;
+  background: #fafafa;
+}
+
+section {
+  display: flex;
+  padding: 1rem;
+  justify-content: center;
+}
+nav {
+  max-width: 750px;
+}
+
+p {
+  color: var(--main-background-dark);
+  font-size: 1.3rem;
+  letter-spacing: 0.1px;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  width: 600px;
+}
+
+.view-heading {
+  display: flex;
+  justify-content: center;
 }
 
 .create-container {
@@ -43,6 +87,20 @@ h3 {
   background: palegreen;
   border-radius: 4px;
   transform: rotate(-1deg);
+}
+.create-heading-root {
+  width: 200px;
+  text-align: center;
+  background: palevioletred;
+  border-radius: 4px;
+  transform: rotate(1deg);
+}
+.create-heading-file {
+  width: 200px;
+  text-align: center;
+  background: paleturquoise;
+  border-radius: 4px;
+  transform: rotate(1deg);
 }
 
 .input {
@@ -97,9 +155,11 @@ input[type="text"] {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  background: linear-gradient(palegoldenrod, palevioletred);
+  width: 100%;
+  background: linear-gradient(#ffffff, palevioletred);
 }
 
 .breadcrumbs li {
   list-style-type: none;
+  background: transparent;
 }

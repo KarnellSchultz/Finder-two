@@ -12,9 +12,9 @@ export const Layout = ({
   const FolderHeading = () => {
     if (currentFolderId) {
       let heading = files.filter((item) => item._id === currentFolderId);
-      return <h1>{heading[0].name}</h1>;
+      return <h1 className={"create-heading-file"}>{heading[0].name}</h1>;
     } else {
-      return <h1>Root</h1>;
+      return <h1 className={"create-heading-root"}>Root </h1>;
     }
   };
 
@@ -29,12 +29,22 @@ export const Layout = ({
   };
 
   return (
-    <div>
-      <FolderHeading />
-      {files && <Breadcrumbs currentFolderId={currentFolderId} files={files} />}
-      <Form handleSubmit={handleSubmit} />
+    <>
+      <nav>
+        <section>
+          <FolderHeading />
+        </section>
+      </nav>
+      <section>
+        <Form handleSubmit={handleSubmit} />
+      </section>
+      <section>
+        {files && (
+          <Breadcrumbs currentFolderId={currentFolderId} files={files} />
+        )}
+      </section>
       <BackButtonDisplay />
-      {children}
-    </div>
+      <section>{children}</section>
+    </>
   );
 };
