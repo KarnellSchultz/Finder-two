@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import View from "./View";
+import FileView from "./FileView";
 import { Layout } from "./Layout";
 // import Form from "./Form";
 // import Breadcrumbs from "./Breadcrumbs";
@@ -123,21 +123,11 @@ export default function App() {
       handleBackButtonClick={handleBackButtonClick}
     >
       {!isLoading && files && (
-        <View
+        <FileView
           handleFolderClick={handleFolderClick}
           currentFolderId={currentFolderId}
           files={files}
           handleDeleteClick={handleDeleteClick}
-          renderType={"file"}
-        />
-      )}
-      {!isLoading && files && (
-        <View
-          handleFolderClick={handleFolderClick}
-          currentFolderId={currentFolderId}
-          files={files}
-          handleDeleteClick={handleDeleteClick}
-          renderType={"document"}
         />
       )}
     </Layout>
