@@ -9,7 +9,7 @@ export const FileViewDisplay = ({
   const fileRow = fileView.map((file) => {
     return (
       <tr key={file._id}>
-        <td> {file.name} </td>
+        <td>{file.name}</td>
         <td>
           <button onClick={(e) => handleFolderClick(e, file._id)}>click</button>
         </td>
@@ -39,7 +39,7 @@ export const FileViewDisplay = ({
     <table className="striped-table">
       <thead>
         <tr>
-          <th>File Name</th>
+          <th>Name</th>
           <th>Go-To</th>
           <th>Delete</th>
         </tr>

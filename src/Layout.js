@@ -12,9 +12,9 @@ export const Layout = ({
   const FolderHeading = () => {
     if (currentFolderId) {
       let heading = files.filter((item) => item._id === currentFolderId);
-      return <h1 className={"create-heading-file"}>{heading[0].name}</h1>;
+      return <h1>Current Folder: {heading[0].name}</h1>;
     } else {
-      return <h1 className={"create-heading-root"}>Root </h1>;
+      return <h1>Current Folder: Root </h1>;
     }
   };
 
@@ -29,7 +29,7 @@ export const Layout = ({
   };
 
   return (
-    <>
+    <div className="small-container">
       <nav>
         <section>
           <FolderHeading />
@@ -45,6 +45,6 @@ export const Layout = ({
       </section>
       <BackButtonDisplay />
       <section>{children}</section>
-    </>
+    </div>
   );
 };

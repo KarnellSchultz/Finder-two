@@ -552,6 +552,13 @@ dd {
   margin-bottom: 0.5rem;
 }
 
+.breadcrumbs {
+  display: flex;
+  list-style-type: none;
+  background: #f8f8f8;
+  padding: 1rem;
+}
+
 .full-container {
   max-width: 100%;
   padding: 0 1rem;

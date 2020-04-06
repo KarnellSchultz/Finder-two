@@ -45,6 +45,7 @@ export default function FileView({
     return () => {
       clearView();
     };
+    // eslint-disable-next-line
   }, [files, currentFolderId]);
 
   return (
