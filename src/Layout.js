@@ -10,11 +10,12 @@ export const Layout = ({
   currentFolderId,
 }) => {
   const FolderHeading = () => {
+    const contextText = "Current Directory: ";
     if (currentFolderId) {
       let heading = files.filter((item) => item._id === currentFolderId);
-      return <h1>Current Folder: {heading[0].name}</h1>;
+      return <h1>{`${contextText} ${heading[0].name}`}</h1>;
     } else {
-      return <h1>Current Folder: Root </h1>;
+      return <h1>{contextText} Root</h1>;
     }
   };
 
