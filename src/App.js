@@ -102,6 +102,9 @@ export default function App() {
     e.preventDefault();
     deleteItem(_id);
   };
+  const goHome = () => {
+    setCurrentFolderId(0);
+  };
 
   return (
     <Layout
@@ -115,6 +118,7 @@ export default function App() {
           handleFolderClick={handleFolderClick}
           currentFolderId={currentFolderId}
           files={files}
+          goHome={goHome}
           handleDeleteClick={handleDeleteClick}
         />
       )}

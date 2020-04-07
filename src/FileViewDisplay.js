@@ -5,6 +5,7 @@ export const FileViewDisplay = ({
   handleFolderClick,
   fileView,
   docView,
+  goHome,
 }) => {
   const fileRow = fileView.map((file) => {
     return (
@@ -48,7 +49,9 @@ export const FileViewDisplay = ({
       </thead>
       <tfoot>
         <tr>
-          <th>Footer 1</th>
+          <th>
+            <button onClick={goHome}>Root</button>
+          </th>
           <th>Footer 2</th>
           <th>Footer 3</th>
         </tr>

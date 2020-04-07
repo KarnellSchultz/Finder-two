@@ -6,6 +6,7 @@ export default function FileView({
   currentFolderId,
   handleFolderClick,
   handleDeleteClick,
+  goHome,
 }) {
   const [fileView, setFileView] = useState([]);
   const [docView, setDocView] = useState([]);
@@ -38,7 +39,6 @@ export default function FileView({
       }
     });
   };
-  console.log({ docView });
   useEffect(() => {
     createFileView();
     createDocView();
@@ -54,6 +54,7 @@ export default function FileView({
       handleFolderClick={handleFolderClick}
       fileView={fileView}
       docView={docView}
+      goHome={goHome}
     />
   );
 }
