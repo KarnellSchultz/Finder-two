@@ -1,4 +1,5 @@
 import React from "react";
+import { useSpring, animated } from "react-spring";
 
 export const FileViewDisplay = ({
   handleDeleteClick,
@@ -7,6 +8,8 @@ export const FileViewDisplay = ({
   docView,
   goHome,
 }) => {
+  const props = useSpring({ opacity: 1, from: { opacity: 0 } });
+
   const fileRow = fileView.map((file) => {
     return (
       <tr key={file._id}>
@@ -52,14 +55,20 @@ export const FileViewDisplay = ({
           <th>
             <button onClick={goHome}>Root</button>
           </th>
-          <th>Footer 2</th>
-          <th>Footer 3</th>
         </tr>
       </tfoot>
-      <tbody>
-        {fileRow}
-        {docRow}
-      </tbody>
+      {fileRow.length === 0 && docView.length === 0 ? (
+        <tr>
+          <td>No Files in this directory</td>
+          <td></td>
+          <td></td>
+        </tr>
+      ) : (
+        <animated.tbody style={props}>
+          {fileRow}
+          {docRow}
+        </animated.tbody>
+      )}
     </table>
   );
 };
