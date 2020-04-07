@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import FileView from "./FileView";
 import { Layout } from "./Layout";
-// import Form from "./Form";
-// import Breadcrumbs from "./Breadcrumbs";
 
 // const home = [
 //   {
@@ -25,7 +23,6 @@ export default function App() {
     },
   ]);
   const [currentFolderId, setCurrentFolderId] = useState(0);
-
   useEffect(() => {
     getFiles();
   }, [currentFolderId]);

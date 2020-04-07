@@ -30,7 +30,7 @@ export const Layout = ({
   };
 
   return (
-    <div className="small-container">
+    <section className="small-container">
       <nav>
         <section>
           <FolderHeading />
@@ -46,6 +46,6 @@ export const Layout = ({
       </section>
       <BackButtonDisplay />
       <section>{children}</section>
-    </div>
+    </section>
   );
 };
