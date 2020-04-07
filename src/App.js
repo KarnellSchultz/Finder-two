@@ -63,12 +63,13 @@ export default function App() {
     return newId;
   };
 
-  const createFolder = (inputText, isFile) => {
+  const createFolder = (inputText, createType = "file") => {
+    console.log(createType);
     const newFile = {
       _id: createId(),
       parentID: currentFolderId,
       name: inputText,
-      type: isFile ? "file" : "document",
+      type: createType,
     };
     postNewFileToDataBase(newFile);
   };
@@ -83,16 +84,6 @@ export default function App() {
     e.preventDefault();
     setCurrentFolderId(tempID);
   }
-
-  const handleSubmit = (e, inputText, isFile) => {
-    e.preventDefault();
-    if (inputText.length === 0) {
-      alert("Add a name before submitting");
-    } else {
-      createFolder(inputText, isFile);
-      console.log(files);
-    }
-  };
 
   const deleteItem = (_id) => {
     fetch(`http://localhost:9000/remove/${_id}`, {
@@ -114,7 +105,7 @@ export default function App() {
 
   return (
     <Layout
-      handleSubmit={handleSubmit}
+      createFolder={createFolder}
       currentFolderId={currentFolderId}
       files={files}
       handleBackButtonClick={handleBackButtonClick}

@@ -11,10 +11,12 @@ export const FileViewDisplay = ({
       <tr key={file._id}>
         <td>{file.name}</td>
         <td>
-          <button onClick={(e) => handleFolderClick(e, file._id)}>click</button>
+          <button onClick={(e) => handleFolderClick(e, file._id)}>Click</button>
         </td>
         <td>
-          <button onClick={(e) => handleDeleteClick(e, file._id)}> Boom</button>
+          <button onClick={(e) => handleDeleteClick(e, file._id)}>
+            {"❌"}
+          </button>
         </td>
       </tr>
     );
@@ -29,7 +31,7 @@ export const FileViewDisplay = ({
           </button>
         </td>
         <td>
-          <button onClick={(e) => handleDeleteClick(e, doc._id)}> Boom</button>
+          <button onClick={(e) => handleDeleteClick(e, doc._id)}>{"❌"}</button>
         </td>
       </tr>
     );
@@ -54,11 +56,6 @@ export const FileViewDisplay = ({
       <tbody>
         {fileRow}
         {docRow}
-        <tr>
-          <td>Description 1</td>
-          <td>Description 2</td>
-          <td>Description 3</td>
-        </tr>
       </tbody>
     </table>
   );

@@ -6,7 +6,7 @@ export const Layout = ({
   children,
   handleBackButtonClick,
   files,
-  handleSubmit,
+  createFolder,
   currentFolderId,
 }) => {
   const FolderHeading = () => {
@@ -21,7 +21,11 @@ export const Layout = ({
 
   const BackButtonDisplay = () => {
     return currentFolderId === 0 ? (
-      <button disabled onClick={(e) => handleBackButtonClick(e)}>
+      <button
+        className="muted-button"
+        disabled
+        onClick={(e) => handleBackButtonClick(e)}
+      >
         Root
       </button>
     ) : (
@@ -37,7 +41,7 @@ export const Layout = ({
         </section>
       </nav>
       <section>
-        <Form handleSubmit={handleSubmit} />
+        <Form createFolder={createFolder} />
       </section>
       <section>
         {files && (

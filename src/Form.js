@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Form({ handleSubmit }) {
+export default function Form({ createFolder }) {
   const [inputText, setInputText] = useState("");
   const [createType, setCreateType] = useState("file");
 
@@ -23,18 +23,23 @@ export default function Form({ handleSubmit }) {
       ? (e.currentTarget.className = "has-error")
       : (e.currentTarget.className = "is-success");
   };
+
+  const validateSubmit = (e) => {
+    e.preventDefault();
+    if (inputText.length === 0) {
+      return (e.currentTarget[0].className = "has-error");
+    } else {
+      setInputText("");
+      return createFolder(addExtensionToFileName(inputText), createType);
+    }
+  };
+
+  const addExtensionToFileName = (tempFileName) => {
+    return `${tempFileName}.${createType}`;
+  };
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (inputText.length === 0) {
-          return (e.currentTarget[0].className = "has-error");
-        } else {
-          setInputText("");
-          handleSubmit(e, inputText, createType);
-        }
-      }}
-    >
+    <form onSubmit={(e) => validateSubmit(e)}>
       <label htmlFor="input"> Create New </label>
       <input
         className="input"
@@ -48,14 +53,16 @@ export default function Form({ handleSubmit }) {
           handleTextChange(e);
         }}
       ></input>
-      <label htmlFor="choose">Select</label>
-      <select onChange={(e) => handleSelectChange(e)} id="choose">
+      <label htmlFor="chooseType">Select</label>
+      <select onChange={(e) => handleSelectChange(e)} id="chooseType">
         <option defaultValue value="file">
           File
         </option>
         <option value="document">Document</option>
       </select>
-      <button type="submit">Submit</button>
+      <button className="full-button" type="submit">
+        Submit
+      </button>
     </form>
   );
 }

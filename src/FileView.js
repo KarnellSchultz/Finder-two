@@ -11,8 +11,8 @@ export default function FileView({
   const [docView, setDocView] = useState([]);
 
   function clearView() {
-    setFileView((prevState) => []);
-    setDocView((prevState) => []);
+    setFileView(() => []);
+    setDocView(() => []);
     return null;
   }
 
