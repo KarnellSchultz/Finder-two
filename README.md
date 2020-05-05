@@ -1,4 +1,19 @@
+# Finder
 
+Finder mimicks a file system. It allows you to create new files and documents, which are then stored in a database.
+
+## Tech Stack
+
+## FrontEnd
+
+- [React](https://reactjs.org/)
+- [React-Spring](https://www.react-spring.io/)
+
+## BackEnd
+
+- [Node](https://nodejs.org/en/)
+- [Express](https://expressjs.com/)
+- [NeDb](https://github.com/louischatriot/nedb)
 
 ### `yarn start`
 
