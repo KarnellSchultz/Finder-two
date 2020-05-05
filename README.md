@@ -2,6 +2,8 @@
 
 Finder mimicks a file system. It allows you to create new files and documents, which are then stored in a database.
 
+![Project gif](https://media.giphy.com/media/MdeiZehNunJp7o84U4/giphy.gif)
+
 ## Tech Stack
 
 ## FrontEnd
